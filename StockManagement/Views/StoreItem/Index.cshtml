@@ -1,0 +1,29 @@
+﻿@model IEnumerable<StoreItem>
+
+@{
+    ViewBag.Title = "Store Items";
+}
+
+<h2>Store Items</h2>
+<a class="btn btn-primary" asp-action="Add" class="btn btn-primary">Add Store Item quantity</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Store</th>
+            <th>Item</th>
+            <th>Quantity</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Store.Name</td>
+                <td>@item.Item.Name</td>
+                <td>@item.Quantity</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
