@@ -37,7 +37,7 @@ namespace StockManagement.Repositories
                new Item { Id = -10, Name = "Huawei P40 Pro", Price = 899, Description = "Huawei P40 Pro with 256GB storage" }
            );
 
-            // Seeding Stores with negative Id values
+
             modelBuilder.Entity<Store>().HasData(
                 new Store { Id = -1, Name = "Tech World", Address = "123 Tech Street" },
                 new Store { Id = -2, Name = "Gadget Hub", Address = "456 Gadget Avenue" },

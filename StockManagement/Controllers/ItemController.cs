@@ -8,10 +8,14 @@ namespace StockManagement.Controllers
     public class ItemController : Controller
     {
         private readonly IGenericRepository<Item> _itemRepository;
+        private readonly IGenericRepository<StoreItem> _storitemRepository;
+        private readonly IGenericRepository<Store> _storeRepository;
 
-        public ItemController(IGenericRepository<Item> itemRepository)
+        public ItemController(IGenericRepository<Item> itemRepository, IGenericRepository<StoreItem> storitemRepository, IGenericRepository<Store> storeRepository)
         {
             _itemRepository = itemRepository;
+            _storitemRepository = storitemRepository;
+            _storeRepository = storeRepository;
         }
         public IActionResult Index()
         {
@@ -20,7 +24,11 @@ namespace StockManagement.Controllers
         }
         public IActionResult Create()
         {
-            return View();
+            var item = new ItemViewModel
+            {
+                Stores = _storeRepository.GetAll(),
+            };
+            return View(item);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -28,15 +36,25 @@ namespace StockManagement.Controllers
         {
             if (ModelState.IsValid)
             {
-                var store = new Item
+                var item = new Item
                 {
                     Name = itemViewModel.Name,
                     Price = itemViewModel.Price,
                     Description = itemViewModel.Description,
 
                 };
+                _itemRepository.Add(item);
 
-                _itemRepository.Add(store);
+                var storeItem = new StoreItem
+                {
+                    ItemId = item.Id,
+                    StoreId = itemViewModel.SelectedStoreId,
+                    Quantity = itemViewModel.Quantity,
+                };
+
+
+                _storitemRepository.Add(storeItem);
+
                 return RedirectToAction("Index");
 
             }
@@ -88,7 +106,7 @@ namespace StockManagement.Controllers
                 _itemRepository.Update(item);
                 return RedirectToAction(nameof(Index));
             }
-
+            viewModel.Stores = _storeRepository.GetAll();
             return View(viewModel);
         }
 

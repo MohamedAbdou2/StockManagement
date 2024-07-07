@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Create";
+    var storesSelectList = new SelectList(Model.Stores, "Id", "Name");
 }
 
 <h2>Create</h2>
@@ -25,6 +26,16 @@
                 <label asp-for="Description" class="control-label"></label>
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SelectedStoreId" class="control-label">Stores</label>
+                <select asp-for="SelectedStoreId" asp-items="storesSelectList" class="form-control"></select>
+                <span asp-validation-for="SelectedStoreId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Quantity" class="control-label"></label>
+                <input asp-for="Quantity" class="form-control" />
+                <span asp-validation-for="Quantity" class="text-danger"></span>
             </div>
           
             <div class="form-group">

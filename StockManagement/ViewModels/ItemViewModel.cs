@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using StockManagement.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace StockManagement.ViewModels
 {
@@ -14,6 +15,13 @@ namespace StockManagement.ViewModels
         [MaxLength(200)]
         public string Description { get; set; }
 
+        public IEnumerable<Store>? Stores { get; set; }
+
+        public int SelectedStoreId { get; set; }
+
+        [Required]
+
+        public int Quantity { get; set; }
 
     }
 }
