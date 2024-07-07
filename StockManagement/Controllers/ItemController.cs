@@ -19,8 +19,8 @@ namespace StockManagement.Controllers
         }
         public IActionResult Index()
         {
-            var stores = _itemRepository.GetAll();
-            return View(stores);
+            var items = _itemRepository.GetAll();
+            return View(items);
         }
         public IActionResult Create()
         {
